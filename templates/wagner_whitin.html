@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wagner-Whitin - Tamaño de Lote Óptimo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Wagner-Whitin - Tamaño de Lote Óptimo</h1>
+
+    <main>
+        <a href="{{ url_for('index') }}" class="back-button">← Volver al Menú</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for cat, msg in messages %}
+                <li class="{{ cat }}"><strong>{{ cat.title() }}:</strong> {{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <p>Define tu problema con este formato JSON:</p>
+        <pre>
+{
+  "demand":       [65, 45, 35, 10, 115, 25, 85, 20],
+  "setup_cost":  100,
+  "holding_cost": 1.5
+}
+        </pre>
+
+        <form method="POST">
+            <p>
+                <label for="ww_data">Datos Wagner-Whitin (JSON):</label>
+                <textarea id="ww_data" name="ww_data" rows="8" cols="60" placeholder="Pega aquí tu JSON de demanda, setup_cost y holding_cost">{{ request.form.get('ww_data','') }}</textarea>
+            </p>
+            <p><button type="submit">Calcular Lotes Óptimos</button></p>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Resultado</h2>
+                <p><strong>Costo total mínimo:</strong> {{ result.min_cost }}</p>
+                <p><strong>Plan de producción (unidades por periodo):</strong></p>
+                <ul class="result-list">
+                  {% for qty in result.schedule %}
+                    <li>Periodo {{ loop.index }}: {{ qty }} unidad(es)</li>
+                  {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2025 Omar & Luis - UPAEP
+    </footer>
+</body>
+</html>

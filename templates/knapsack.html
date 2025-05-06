@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema de la Mochila (Knapsack)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Problema de la Mochila</h1>
+
+    <main>
+        <a href="{{ url_for('index') }}" class="back-button">← Volver al Menú</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for category, message in messages %}
+                <li class="{{ category }}"><strong>{{ category.title() }}:</strong> {{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <p>
+                <label for="mode">Modo:</label>
+                <select id="mode" name="mode" onchange="toggleMode(this.value)" class="select-field">
+                    <option value="standard" {% if request.form.get('mode') == 'standard' %}selected{% endif %}>Estándar</option>
+                    <option value="multiple" {% if request.form.get('mode') == 'multiple' %}selected{% endif %}>Múltiple</option>
+                </select>
+            </p>
+
+            <!-- Modo estándar -->
+            <div id="standard_mode" {% if request.form.get('mode') == 'multiple' %}style="display:none;"{% endif %}>
+                <p>
+                    <label for="weights_str">Peso de los objetos (separados por coma):</label>
+                    <input type="text" id="weights_str" name="weights_str" placeholder="Ejemplo: 2,3,4,5" value="{{ request.form.get('weights_str','') }}">
+                </p>
+                <p>
+                    <label for="values_str">Valor de los objetos (separados por coma):</label>
+                    <input type="text" id="values_str" name="values_str" placeholder="Ejemplo: 3,4,5,6" value="{{ request.form.get('values_str','') }}">
+                </p>
+                <p>
+                    <label for="capacity">Capacidad máxima:</label>
+                    <input type="text" id="capacity" name="capacity" placeholder="Ejemplo: 5" value="{{ request.form.get('capacity','') }}">
+                </p>
+            </div>
+
+            <!-- Modo múltiple -->
+            <div id="multiple_mode" {% if request.form.get('mode') != 'multiple' %}style="display:none;"{% endif %}>
+                <p>
+                    <label for="groups_data">Datos de los grupos (formato JSON o lista):</label>
+                    <textarea id="groups_data" name="groups_data" rows="5" cols="40" 
+                      placeholder="Ejemplo: [{'cost': 2, 'value': 3}, {'cost': 3, 'value': 4}]">{{ request.form.get('groups_data','') }}</textarea>
+                </p>
+                <p>
+                    <label for="total_capacity">Capacidad total:</label>
+                    <input type="text" id="total_capacity" name="total_capacity" placeholder="Ejemplo: 10" value="{{ request.form.get('total_capacity','') }}">
+                </p>
+            </div>
+
+            <p>
+                <button type="submit">Resolver</button>
+            </p>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Resultado</h2>
+
+                {% if result.mode == 'standard' %}
+                    <p><strong>Valor máximo:</strong> {{ result.max_value }}</p>
+                    <p><strong>Objetos seleccionados:</strong>
+                    {% if result['items'] %}
+                        {{ result['items'] | join(", ") }}
+                    {% else %}
+                        Ninguno
+                    {% endif %}
+                    </p>
+
+                {% elif result.mode == 'multiple' %}
+                    <p><strong>Valor máximo:</strong> {{ result.max_value }}</p>
+                    <p><strong>Selección de objetos:</strong></p>
+                    <ul class="result-list">
+                        {% for item in result.selection %}
+                            <li>Grupo: {{ item.group }}, Costo: {{ item.cost }}, Valor: {{ item.value }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2025 Omar & Luis - UPAEP
+    </footer>
+
+    <script>
+        function toggleMode(mode) {
+            document.getElementById('standard_mode').style.display = (mode === 'standard') ? '' : 'none';
+            document.getElementById('multiple_mode').style.display = (mode === 'multiple') ? '' : 'none';
+        }
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleMode("{{ request.form.get('mode','standard') }}");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+/* UPAEP Algorithm Pages Style.css */
+:root {
+    --primary: #C8102E; /* UPAEP red */
+    --secondary: #F4F4F4;
+    --text: #333333;
+    --light-gray: #E6E6E6;
+    --medium-gray: #AAAAAA;
+    --dark-gray: #707070;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --info: #17a2b8;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--secondary);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+  
+  header {
+    background-color: var(--primary);
+    padding: 1.5rem 0;
+    text-align: center;
+    color: white;
+  }
+  
+  h1 {
+    background-color: var(--primary);
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  
+  h2 {
+    color: var(--primary);
+    margin: 1.5rem 0 1rem;
+    font-weight: 500;
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 0.5rem;
+  }
+  
+  main, .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    flex: 1;
+  }
+  
+  p {
+    margin: 1rem 0;
+  }
+  
+  /* Form Styles */
+  form {
+    margin: 1.5rem 0;
+  }
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--dark-gray);
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.2);
+  }
+  
+  button {
+    background-color: white;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    padding: 0.8rem 1.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(200, 16, 46, 0.15);
+  }
+  
+  button:active {
+    transform: translateY(0);
+  }
+  
+  /* Code blocks */
+  pre {
+    background: var(--light-gray);
+    border-left: 4px solid var(--primary);
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  /* Flash messages */
+  ul {
+    list-style-type: none;
+    margin: 1rem 0;
+    padding: 0;
+  }
+  
+  ul li {
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    background-color: var(--light-gray);
+    border-left: 4px solid var(--primary);
+  }
+  
+  ul li strong {
+    color: var(--primary);
+    margin-right: 0.5rem;
+  }
+  
+  /* Results section */
+  .result {
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    border-left: 4px solid var(--primary);
+  }
+  
+  .result p {
+    margin: 0.5rem 0;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1.2rem;
+    font-size: 0.9rem;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    margin-top: 2rem;
+  }
+  
+  /* Back to Menu Button */
+  .back-button {
+    display: inline-block;
+    margin: 1rem 0;
+    text-decoration: none;
+    background-color: white;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(200, 16, 46, 0.15);
+  }
+  
+  .back-button:active {
+    transform: translateY(0);
+  }
+  
+  /* Message categories */
+  .success {
+    border-left-color: var(--success) !important;
+  }
+  
+  .success strong {
+    color: var(--success) !important;
+  }
+  
+  .warning {
+    border-left-color: var(--warning) !important;
+  }
+  
+  .warning strong {
+    color: var(--warning) !important;
+  }
+  
+  .error, .danger {
+    border-left-color: var(--danger) !important;
+  }
+  
+  .error strong, .danger strong {
+    color: var(--danger) !important;
+  }
+  
+  .info {
+    border-left-color: var(--info) !important;
+  }
+  
+  .info strong {
+    color: var(--info) !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.8rem;
+      padding: 1.2rem 0;
+    }
+    
+    main, .container {
+      padding: 1.5rem;
+      margin: 0 1rem;
+      border-radius: 0;
+    }
+    
+    pre {
+      font-size: 0.8rem;
+      padding: 0.8rem;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      padding: 0.7rem;
+    }
+    
+    button {
+      width: 100%;
+    }
+  }
+
+  /* Estilos adicionales para campos de selección (dropdown) */
+.select-field {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  
+  /* Estilos para personalizar el dropdown */
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  background-color: white;
+}
+
+.select-field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C8102E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.select-field:hover {
+  border-color: var(--dark-gray);
+}
+
+/* Ajuste responsivo para el select */
+@media (max-width: 768px) {
+  .select-field {
+    padding: 0.7rem;
+    padding-right: 2.5rem;
+  }
+}

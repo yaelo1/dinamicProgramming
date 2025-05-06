@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árbol de Expansión Mínima (MST)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Árbol de Expansión Mínima</h1>
+
+    <main>
+        <a href="{{ url_for('index') }}" class="back-button">← Volver al Menú</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for cat, msg in messages %}
+                <li class="{{ cat }}"><strong>{{ cat.title() }}:</strong> {{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <p>Define tu grafo con aristas (u, v, peso) en formato JSON:</p>
+        <pre>
+{
+  "edges": [
+    ["A", "B", 5],
+    ["A", "C", 3],
+    ["B", "C", 2],
+    ["B", "D", 4],
+    ["C", "D", 6]
+  ]
+}
+        </pre>
+
+        <form method="POST">
+            <p>
+                <label for="edges_data">Aristas (JSON):</label>
+                <textarea id="edges_data" name="edges_data" rows="8" cols="60"
+                    placeholder="Pega aquí el JSON de aristas">{{ request.form.get('edges_data','') }}</textarea>
+            </p>
+            <!-- Flag para indicar si el grafo es dirigido -->
+            <p>
+                <label for="directed">Grafo dirigido:</label>
+                <input type="checkbox" id="directed" name="directed" value="true"
+                    {% if request.form.get('directed') %}checked{% endif %}>
+            </p>
+            <!-- Input opcional para nodo raíz en caso de grafo dirigido -->
+            <p>
+                <label for="root">Nodo raíz (solo para dirigido):</label>
+                <input type="text" id="root" name="root" size="5"
+                    placeholder="Ej: A" value="{{ request.form.get('root','') }}">
+            </p>
+            <p><button type="submit">Calcular MST</button></p>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Resultado</h2>
+                <p><strong>Grafo dirigido:</strong> {{ result.directed and "Sí" or "No" }}</p>
+                {% if result.directed %}
+                <p><strong>Raíz:</strong> {{ result.root or '-' }}</p>
+                {% endif %}
+                <p><strong>Costo total:</strong> {{ '%.2f'|format(result.total_cost) }}</p>
+                <p><strong>Aristas del MST:</strong></p>
+                <ul class="result-list">
+                  {% for u, v, w in result.mst %}
+                    <li>{{ u }} -- {{ v }} : {{ w }}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2025 Omar & Luis - UPAEP
+    </footer>
+</body>
+</html>

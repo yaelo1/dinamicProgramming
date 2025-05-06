@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Final de Algoritmos</title>
+  <style>
+    :root {
+      --primary: #C8102E; /* UPAEP red */
+      --secondary: #F4F4F4;
+      --text: #333333;
+      --light-gray: #E6E6E6;
+      --medium-gray: #AAAAAA;
+      --dark-gray: #707070;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--primary);
+      padding: 1.5rem 0;
+      text-align: center;
+      color: white;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+    
+    header h2 {
+      color: white;
+      font-weight: 400;
+      margin-top: 0.3rem;
+    }
+    
+    main {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      flex: 1;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin: 1rem 0;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .team {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    
+    .team p {
+      margin: 1rem 0;
+    }
+    
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    nav a {
+      background-color: white;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 0.8rem 1.6rem;
+      border: 1.5px solid var(--primary);
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      min-width: 180px;
+      text-align: center;
+    }
+    
+    nav a:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(200, 16, 46, 0.15);
+    }
+    
+    nav a:active {
+      transform: translateY(0);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+      background-color: var(--light-gray);
+      color: var(--dark-gray);
+      margin-top: auto;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        padding: 1.5rem;
+        margin: 1.5rem 1rem;
+      }
+      
+      nav {
+        gap: 0.8rem;
+      }
+      
+      nav a {
+        min-width: 150px;
+        padding: 0.7rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Proyecto Final</h1>
+    <h2>Modelos de Optimización</h2>
+  </header>
+  <main>
+    <section class="team">
+      <h2>Integrantes</h2>
+      <p style="text-align: center;">
+        <strong>Omar Yael Sánchez González</strong><br>
+        <strong>Luis Alfonso Álvarez Palomares</strong>
+      </p>
+    </section>
+    <section>
+      <h2>Menú de Algoritmos</h2>
+      <nav>
+        <a href="{{ url_for('knapsack') }}">Mochila</a>
+        <a href="{{ url_for('shortest_path') }}">Camino Más Corto</a>
+        <a href="{{ url_for('diligencia') }}">Diligencia</a>
+        <a href="{{ url_for('distribucion') }}">Distribución</a>
+        <a href="{{ url_for('wagner_whitin') }}">Wagner-Whitin</a>
+        <a href="{{ url_for('mst') }}">Árbol Expansión Mínima</a>
+      </nav>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Omar & Luis - UPAEP
+  </footer>
+</body>
+</html>

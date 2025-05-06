@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camino Más Corto (Dijkstra)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Camino Más Corto</h1>
+
+    <main>
+        <a href="{{ url_for('index') }}" class="back-button">← Volver al Menú</a>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for category, message in messages %}
+                <li class="{{ category }}"><strong>{{ category.title() }}:</strong> {{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <p>Define el grafo como JSON o usa el ejemplo para guiarte:</p>
+        <pre>
+{
+  "A": [["B", 5], ["C", 2]],
+  "B": [["A", 5], ["C", 1], ["D", 7]],
+  "C": [["A", 2], ["B", 1], ["D", 4]],
+  "D": [["B", 7], ["C", 4]]
+}
+        </pre>
+
+        <form method="POST">
+            <p>
+                <label for="graph_data">Grafo (JSON):</label>
+                <textarea id="graph_data" name="graph_data" rows="8" cols="60"
+                    placeholder="Pega aquí el JSON del grafo siguiendo el formato mostrado arriba">{{ request.form.get('graph_data','') }}</textarea>
+            </p>
+            <p>
+                <label for="start_node">Nodo origen:</label>
+                <input id="start_node" type="text" name="start_node" placeholder="Ejemplo: A" value="{{ request.form.get('start_node','') }}">
+            </p>
+            <p>
+                <label for="end_node">Nodo destino:</label>
+                <input id="end_node" type="text" name="end_node" placeholder="Ejemplo: D" value="{{ request.form.get('end_node','') }}">
+            </p>
+            <p><button type="submit">Calcular</button></p>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Resultado</h2>
+                <p><strong>Costo mínimo:</strong> {{ result.cost }}</p>
+                <p><strong>Ruta:</strong>
+                    {% if result.path %}
+                        {{ result.path | join(" → ") }}
+                    {% else %}
+                        Ninguna
+                    {% endif %}
+                </p>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2025 Omar & Luis - UPAEP
+    </footer>
+</body>
+</html>

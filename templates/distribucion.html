@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribución de Recursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Distribución de Recursos</h1>
+
+    <main>
+        <a href="{{ url_for('index') }}" class="back-button">← Volver al Menú</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for cat, msg in messages %}
+                <li class="{{ cat }}"><strong>{{ cat.title() }}:</strong> {{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <p>Define tu distribución así (beneficio por # recursos asignados):</p>
+        <pre>
+{
+  "Centro1": [0, 10, 18, 24],
+  "Centro2": [0, 15, 28, 40],
+  "Centro3": [0,  8, 14, 20]
+}
+        </pre>
+
+        <form method="POST">
+            <p>
+                <label for="distribution_data">Distribución (JSON):</label>
+                <textarea id="distribution_data" name="distribution_data" rows="6" cols="60"
+                  placeholder="Pega aquí tu JSON">{{ request.form.get('distribution_data','') }}</textarea>
+            </p>
+            <p>
+                <label for="total_resources">Recursos totales disponibles:</label>
+                <input id="total_resources" type="number" name="total_resources" min="0"
+                  placeholder="Ejemplo: 5" value="{{ request.form.get('total_resources','') }}">
+            </p>
+            <p><button type="submit">Calcular Distribución Óptima</button></p>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Resultado</h2>
+                <p><strong>Beneficio máximo:</strong> {{ result.max_value }}</p>
+                <p><strong>Asignación:</strong></p>
+                <ul class="result-list">
+                  {% for centro, qty in result.allocation.items() %}
+                    <li>{{ centro }}: {{ qty }} recurso(s)</li>
+                  {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2025 Omar & Luis - UPAEP
+    </footer>
+</body>
+</html>
